@@ -1,7 +1,7 @@
 class Produit {
     constructor(colors, _id, name, price, imageUrl, description, altTxt){
-        this.colors=colors,
-        this._id= _id,
+        this.colors = colors,
+        this._id = _id,
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
@@ -48,7 +48,7 @@ class Produit {
                                    return `<option value=${color}> ${color}</option>`
                                 })}
                             </select>
-                            
+
                             </div>
                             <div class="item__content__settings__quantity">
                             <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
@@ -68,7 +68,10 @@ class Produit {
     }
 }
 
-
-// TO DO
-// Faire une liste pour les couleurs 
-// Boucle pour récuperer les couleurs
+class ProduitInCart  {
+    constructor(id, color, quantity){
+        this.id= id,
+        this.color=color,
+        this.quantity = quantity
+    };
+}
