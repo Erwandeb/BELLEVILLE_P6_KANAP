@@ -70,8 +70,8 @@ class Produit {
 
 class ProduitInCart  {
     constructor(id, color, quantity){
-        this.id= id,
-        this.color=color,
+        this.id = id,
+        this.color = color,
         this.quantity = quantity
     };
 }
