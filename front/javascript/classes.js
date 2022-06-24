@@ -43,7 +43,7 @@ class Produit {
                             <div class="item__content__settings__color">
                             <label for="color-select">Choisir une couleur :</label>
                             <select name="color-select" id="colors">
-                                <option value="">--SVP, choisissez une couleur --</option>
+                                <option value="no-color">--SVP, choisissez une couleur --</option>
                                 ${this.colors.map((color) => {
                                    return `<option value=${color}> ${color}</option>`
                                 })}
@@ -68,7 +68,7 @@ class Produit {
     }
 }
 
-class ProduitInCart  {
+class ProduitInCart {
     constructor(id, color, quantity){
         this.id = id,
         this.color = color,
