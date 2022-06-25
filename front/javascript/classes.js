@@ -41,19 +41,24 @@ class Produit {
 
                         <div class="item__content__settings">
                             <div class="item__content__settings__color">
-                            <label for="color-select">Choisir une couleur :</label>
-                            <select name="color-select" id="colors">
-                                <option value="no-color">--SVP, choisissez une couleur --</option>
-                                ${this.colors.map((color) => {
-                                   return `<option value=${color}> ${color}</option>`
-                                })}
-                            </select>
+                             <p id="error-color">Merci de choisir une couleur</p>
+                                <label for="color-select">Choisir une couleur : <p id="error-color">Merci de choisir une couleur</p></label>
+                                <select name="color-select" id="colors">
+                                    <option value="no-color">--SVP, choisissez une couleur --</option>
+                                    ${this.colors.map((color) => {
+                                    return `<option value=${color}> ${color}</option>`
+                                    })}
+                                </select>
 
                             </div>
                             <div class="item__content__settings__quantity">
-                            <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
-                            <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
-                            </div>
+                                <div class="itemsetting-label-container">
+                                    <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
+                                    <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
+                                </div>
+                                <p id="error-quantity-max"> Votre commande dépasse 100 unités </p>
+                                <p id="error-quantity-negativ">Aucune quantité selectionnée</p>
+                                </div>
                         </div>
 
                         <div class="item__content__addButton">
@@ -66,12 +71,30 @@ class Produit {
             </div>
         `
     }
-}
 
-class ProduitInCart {
-    constructor(id, color, quantity){
-        this.id = id,
-        this.color = color,
-        this.quantity = quantity
-    };
+    renderItemDetailsOnCart(){
+        return `
+        <article class="cart__item" data-id="${this._id}" data-color="{product-color}">
+            <div class="cart__item__img">
+                <img src='${this.imageUrl}' alt=${this.altTxt}>
+            </div>
+            <div class="cart__item__content">
+                <div class="cart__item__content__description">
+                    <h2>${this.name}</h2>
+                    <p id="color-of-canape">Vert</p>
+                    <p>${this.price} €</p>
+                </div>
+                <div class="cart__item__content__settings">
+                        <div class="cart__item__content__settings__quantity">
+                            <p id="quantity-of-canape">Qté : </p>
+                            <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
+                        </div>
+                        <div class="cart__item__content__settings__delete">
+                            <p class="deleteItem">Supprimer</p>
+                        </div>
+                </div>
+            </div>
+        </article>
+        `
+    }
 }

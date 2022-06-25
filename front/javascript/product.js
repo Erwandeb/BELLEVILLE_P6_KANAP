@@ -1,6 +1,10 @@
 const displayItem = document.querySelector('.item');
+
 const url = new URL(window.location);
 const id = url.searchParams.get('id');
+let colorChoice = "no-color";
+let quantityChoice;
+let quantityAddInCart;
 
 // Traitement de l'URl !!!
 
@@ -9,18 +13,16 @@ const id = url.searchParams.get('id');
  * @classe voir scipt "classes.js"
  * 
  */
-
-let colorChoice = "no-color";
-let quantityChoice;
-
 const loadSpecificItem = () => {
     fetch(`http://localhost:3000/api/products/${id}`)
     .then((response) => {
         return response.json()
     })
     .then(data => {
+        
         const produit = new Produit(data.colors, data._id, data.name, data.price, data.imageUrl, data.description, data.altText);
         displayItem.innerHTML = produit.renderItemDetailsOnSpecificPage();
+
 
         const colorSelectedListenner = document.getElementById("colors");
         colorSelectedListenner.addEventListener('change', (e)=>{ 
@@ -31,38 +33,43 @@ const loadSpecificItem = () => {
         
         const quantitySelectedListenner = document.getElementById("quantity");
         quantitySelectedListenner.addEventListener('change', (e)=>{
-           
-         let transormResultIntoNumber = e.target.value;
-            quantityChoice = parseInt(transormResultIntoNumber);
-       
-        
+            quantityChoice = e.target.value;
         }) 
 
-        const addToCartBtn = document.getElementById("addToCart"); 
-        addToCartBtn.addEventListener('click', ()=> {
-           
 
+        const addToCartBtn = document.getElementById("addToCart"); 
+        addToCartBtn.addEventListener('click', (e)=> {
+            
+            const errorColor = document.getElementById('error-color');
+            const errorQuantityMax = document.getElementById('error-quantity-max');
+            const errorQuantityMin  = document.getElementById('error-quantity-negativ');
+            
             if(colorChoice !== "no-color"){
+                errorColor.style.display='none';
                 localStorage.setItem("color", colorChoice);
             } else{
-                console.log("merci de choisir une couleur");
-                e.preventDefault();
+                errorColor.style.display='block';
+               e.preventDefault();
             }
             
-               
-            if(quantityChoice > 100){
+
+            if(quantityChoice === undefined){
+                errorQuantityMin.style.display='block';
                 e.preventDefault();
-                console.log("impossible superieur a 100")
+            }else if(quantityChoice > 100){
+                errorQuantityMax.style.display='block';
+                e.preventDefault();
             }else if(quantityChoice <= 0){
-                console.log("impossible nombre négatif");
+                errorQuantityMin.style.display='block';
                 e.preventDefault();
             } else{
-                localStorage.setItem("quantité mise en panier", quantityChoice);
+                errorQuantityMax.style.display='none';
+                errorQuantityMin.style.display='none';
+                quantityAddInCart = parseInt(quantityChoice)
+                localStorage.setItem("id", id)
+                localStorage.setItem("quantité", quantityAddInCart);
             }
-
-        
         })
-        
     })
     .catch(error => console.log("error dans le fetch"+ error))  
 }

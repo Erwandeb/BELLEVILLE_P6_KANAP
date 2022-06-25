@@ -56,9 +56,43 @@
 	padding-top: 24px;
 	padding-bottom: 18px;
 }
+
 .item__content__settings__color {
 	margin-bottom: 10px;
+	position: relative;
 }
+
+#error-color{
+	color :red;
+	border: initial;
+	margin-top: 0;
+	margin-bottom: 0;
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-style: italic;
+}
+.item__content__settings__quantity{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+}
+
+#error-quantity-max,
+#error-quantity-negativ{
+	color :red;
+	border: initial;
+	margin-top: 0;
+	margin-bottom: 0;
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-style: italic;
+}
+
 .item__content__settings__color select,
 .item__content__settings__quantity input {
 	color: var(--footer-secondary-color);
