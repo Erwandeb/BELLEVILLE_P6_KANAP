@@ -6,7 +6,8 @@ let quantityChoice;
 let quantityAddInCart;
 
 const id = localStorage.getItem('id');
-
+const quantity = localStorage.getItem('quantity')
+const color = localStorage.getItem('color')
 
 /**
  * Affichage des éléments dynamiques dans le DOM
@@ -19,9 +20,8 @@ const loadItemInCart = () => {
         return response.json()
     })
     .then(data => {
-        
         const produit = new Produit(data.colors, data._id, data.name, data.price, data.imageUrl, data.description, data.altText);
-        displaySelecteditem.innerHTML = produit.renderItemDetailsOnCart();
+        displaySelecteditem.innerHTML = produit.renderItemDetailsOnCart(quantity, color);
     })
     .catch(error => console.log("error dans le fetch"+ error))  
 }

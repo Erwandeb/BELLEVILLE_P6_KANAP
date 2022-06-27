@@ -44,16 +44,10 @@ const loadSpecificItem = () => {
             const errorQuantityMax = document.getElementById('error-quantity-max');
             const errorQuantityMin  = document.getElementById('error-quantity-negativ');
             
-            if(colorChoice !== "no-color"){
-                errorColor.style.display='none';
-                localStorage.setItem("color", colorChoice);
-            } else{
+            if(colorChoice == "no-color"){
                 errorColor.style.display='block';
-               e.preventDefault();
-            }
-            
-
-            if(quantityChoice === undefined){
+                e.preventDefault();
+            }else if(quantityChoice === undefined){
                 errorQuantityMin.style.display='block';
                 e.preventDefault();
             }else if(quantityChoice > 100){
@@ -65,9 +59,14 @@ const loadSpecificItem = () => {
             } else{
                 errorQuantityMax.style.display='none';
                 errorQuantityMin.style.display='none';
+                errorColor.style.display='none';
                 quantityAddInCart = parseInt(quantityChoice)
+                
                 localStorage.setItem("id", id)
-                localStorage.setItem("quantité", quantityAddInCart);
+                localStorage.setItem("quantity", quantityAddInCart);
+                localStorage.setItem("color", colorChoice);
+                
+               
             }
         })
     })
