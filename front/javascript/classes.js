@@ -8,6 +8,7 @@ class Produit {
         this.description = description;
         this.altTxt = altTxt;
     };
+
     renderItemByItem(){
         return `
             <a href="./product.html?id=${this._id}">
@@ -41,8 +42,8 @@ class Produit {
 
                         <div class="item__content__settings">
                             <div class="item__content__settings__color">
-                             <p id="error-color">Merci de choisir une couleur</p>
-                                <label for="color-select">Choisir une couleur : <p id="error-color">Merci de choisir une couleur</p></label>
+                             <p id="error-color"></p>
+                                <label for="color-select">Choisir une couleur : <p id="error-color"></p></label>
                                 <select name="color-select" id="colors">
                                     <option value="no-color">--SVP, choisissez une couleur --</option>
                                     ${this.colors.map((color) => {
@@ -56,8 +57,7 @@ class Produit {
                                     <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
                                     <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
                                 </div>
-                                <p id="error-quantity-max"> Votre commande dépasse 100 unités </p>
-                                <p id="error-quantity-negativ">Aucune quantité selectionnée</p>
+                                <p id="error-quantity"></p>
                                 </div>
                         </div>
 
@@ -71,7 +71,6 @@ class Produit {
             </div>
         `
     }
-
     renderItemDetailsOnCart(quantity, color){
         return `
         <article class="cart__item" data-id="${this._id}" data-color="${color}">

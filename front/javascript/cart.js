@@ -5,9 +5,20 @@ let colorChoice = "no-color";
 let quantityChoice;
 let quantityAddInCart;
 
-const id = localStorage.getItem('id');
-const quantity = localStorage.getItem('quantity')
-const color = localStorage.getItem('color')
+let item = [];
+
+//const id = localStorage.getItem('id');
+//const quantity = localStorage.getItem('quantity')
+//const color = localStorage.getItem('color')
+
+//const produitInCart = localStorage.getItem(JSON.parse());
+
+for(let i=0; i<localStorage.length; i++) {
+    let key = localStorage.key( i );
+    item.push(JSON.parse(localStorage.getItem( key )));
+    console.log("test", item);
+}
+
 
 /**
  * Affichage des éléments dynamiques dans le DOM

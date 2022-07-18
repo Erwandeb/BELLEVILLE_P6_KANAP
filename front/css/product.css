@@ -67,7 +67,6 @@
 	border: initial;
 	margin-top: 0;
 	margin-bottom: 0;
-	display: none;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -80,8 +79,7 @@
 	position: relative;
 }
 
-#error-quantity-max,
-#error-quantity-negativ{
+#error-quantity{
 	color :red;
 	border: initial;
 	margin-top: 0;

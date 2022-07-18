@@ -2,9 +2,6 @@ const displayItem = document.querySelector('.item');
 
 const url = new URL(window.location);
 const id = url.searchParams.get('id');
-let colorChoice = "no-color";
-let quantityChoice;
-let quantityAddInCart;
 
 // Traitement de l'URl !!!
 
@@ -19,10 +16,12 @@ const loadSpecificItem = () => {
         return response.json()
     })
     .then(data => {
-        
+        let colorChoice = "no-color";
+        let quantityChoice;
+        let quantityAddInCart;
+
         const produit = new Produit(data.colors, data._id, data.name, data.price, data.imageUrl, data.description, data.altText);
         displayItem.innerHTML = produit.renderItemDetailsOnSpecificPage();
-
 
         const colorSelectedListenner = document.getElementById("colors");
         colorSelectedListenner.addEventListener('change', (e)=>{ 
@@ -40,33 +39,34 @@ const loadSpecificItem = () => {
         const addToCartBtn = document.getElementById("addToCart"); 
         addToCartBtn.addEventListener('click', (e)=> {
             
-            const errorColor = document.getElementById('error-color');
-            const errorQuantityMax = document.getElementById('error-quantity-max');
-            const errorQuantityMin  = document.getElementById('error-quantity-negativ');
+            e.preventDefault();
             
-            if(colorChoice == "no-color"){
-                errorColor.style.display='block';
-                e.preventDefault();
-            }else if(quantityChoice === undefined){
-                errorQuantityMin.style.display='block';
-                e.preventDefault();
+            const errorColor = document.getElementById('error-color');
+            const errorQuantity  = document.getElementById('error-quantity');
+            
+            // Gestion couleurs
+            if(colorChoice === "no-color"){
+                errorColor.innerHTML ='pas de couleurs choisie';
+            }else{
+                errorColor.innerHTML ='';
+            }
+                
+            // Gestion quantité
+            if(!quantityChoice){
+                errorQuantity.innerHTML = "Erreur dans la quantité choisie";
+
             }else if(quantityChoice > 100){
-                errorQuantityMax.style.display='block';
-                e.preventDefault();
+                errorQuantity.innerHTML = "la quantité dépasse les 100 unités";
+            
             }else if(quantityChoice <= 0){
-                errorQuantityMin.style.display='block';
-                e.preventDefault();
+                errorQuantity.innerHTML = "Aucune quanité choisie";
             } else{
-                errorQuantityMax.style.display='none';
-                errorQuantityMin.style.display='none';
-                errorColor.style.display='none';
+                errorQuantity.innerHTML = "";
                 quantityAddInCart = parseInt(quantityChoice)
                 
-                localStorage.setItem("id", id)
-                localStorage.setItem("quantity", quantityAddInCart);
-                localStorage.setItem("color", colorChoice);
-                
-               
+                // Appeler la fonction addProduct
+                addProduct({idProduit: id, quantite: quantityAddInCart, couleur: colorChoice})
+           
             }
         })
     })
@@ -79,6 +79,6 @@ loadSpecificItem();
 // TO DO 
 // remplir la classe a l'ouverture du bouton ajouter au panier
 
-
+// Ouvrir Fichier storage 
 
 
