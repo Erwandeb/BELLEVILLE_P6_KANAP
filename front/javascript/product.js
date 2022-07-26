@@ -19,12 +19,17 @@ const loadSpecificItem = () => {
         let colorChoice = "no-color";
         let quantityChoice;
         let quantityAddInCart;
+        
+        
 
         const produit = new Produit(data.colors, data._id, data.name, data.price, data.imageUrl, data.description, data.altText);
         displayItem.innerHTML = produit.renderItemDetailsOnSpecificPage();
 
+        const validationMessage = document.getElementById('validation-message');
+        validationMessage.innerHTML=``;
         const colorSelectedListenner = document.getElementById("colors");
         colorSelectedListenner.addEventListener('change', (e)=>{ 
+            validationMessage.innerHTML=``;
            if(e.target.value !== ""){
                 colorChoice = e.target.value;
             } 
@@ -32,10 +37,12 @@ const loadSpecificItem = () => {
         
         const quantitySelectedListenner = document.getElementById("quantity");
         quantitySelectedListenner.addEventListener('change', (e)=>{
+            validationMessage.innerHTML=``;
             quantityChoice = e.target.value;
         }) 
 
 
+       
         const addToCartBtn = document.getElementById("addToCart"); 
         addToCartBtn.addEventListener('click', (e)=> {
             
@@ -67,6 +74,7 @@ const loadSpecificItem = () => {
                 // Appeler la fonction addProduct
                 addProduct({idProduit: id, quantite: quantityAddInCart, couleur: colorChoice})
            
+                validationMessage.innerHTML = `${produit.name} a été ajouté au panier !`
             }
         })
     })

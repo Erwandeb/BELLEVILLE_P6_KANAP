@@ -109,6 +109,12 @@
 	display: flex;
 	justify-content: center;
 	padding-top: 32px;
+	flex-direction: column;
+}
+
+#validation-message{
+	margin-bottom: 15px;
+	text-align: center;
 }
 .item__content__addButton button {
 	font-size: 22px;

@@ -15,6 +15,13 @@ h2 {
 /************/
 /*Cart Items*/
 /************/
+
+
+#message-panier-vide{
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
 .cart__item {
 	display: flex;
 	justify-content: space-around;

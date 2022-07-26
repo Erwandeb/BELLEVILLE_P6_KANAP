@@ -62,6 +62,7 @@ class Produit {
                         </div>
 
                         <div class="item__content__addButton">
+                            <div id="validation-message"></div>
                             <button id="addToCart">Ajouter au panier</button>
                         </div>
 
