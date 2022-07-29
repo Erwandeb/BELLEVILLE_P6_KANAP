@@ -1,3 +1,11 @@
+/**
+ * 1/ @class Produit
+ * 2/ @class client
+ * 
+ */
+
+
+
 class Produit {
     constructor(colors, _id, name, price, imageUrl, description, altTxt){
         this.colors = colors,
@@ -87,7 +95,7 @@ class Produit {
                 <div class="cart__item__content__settings">
                         <div class="cart__item__content__settings__quantity">
                             <p id="quantity-of-canape">Qté : </p>
-                            <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value=${quantity}>
+                            <input type="number" class="itemQuantityBasket" name="itemQuantity" min="1" max="100" value=${quantity}>
                         </div>
                         <div class="cart__item__content__settings__delete">
                             <p class="deleteItem">Supprimer</p>
@@ -99,3 +107,14 @@ class Produit {
     }
 }
 
+
+
+class Client {
+    constructor(firstName, lastName, address, city, email){
+        this.firstName= firstName,
+        this.lastName = lastName,
+        this.address = address,
+        this.city = city,
+        this.email = email
+    };
+}
