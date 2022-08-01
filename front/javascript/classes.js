@@ -1,10 +1,7 @@
 /**
  * 1/ @class Produit
  * 2/ @class client
- * 
  */
-
-
 
 class Produit {
     constructor(colors, _id, name, price, imageUrl, description, altTxt){
