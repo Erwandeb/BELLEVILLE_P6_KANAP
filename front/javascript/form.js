@@ -41,10 +41,10 @@
 
     // Vérification du champ PRENOM
     if(firstName.value.trim() == "" || firstName.value == null){
-        msgErrorFirstName.innerHTML = "Vous devez écrire votre prénom.";
+      msgErrorFirstName.innerHTML = "Vous devez écrire votre prénom.";
       firstName.style.border = "2px solid #fe152f";
     } else if (antiNumberRegExp.test(firstName.value)){
-        msgErrorFirstName.innerHTML = "Votre prénom ne doit pas comporter de chiffres ou de symboles.";
+      msgErrorFirstName.innerHTML = "Votre prénom ne doit pas comporter de chiffres ou de symboles.";
       firstName.style.border = "2px solid #fe152f";
     }else {
       msgErrorFirstName.innerHTML = "";
@@ -117,7 +117,7 @@
             },
           method: "post",
           body: JSON.stringify(order)
-      }).then( async (response) => {
+      }).then(async (response) => {
           const getOrderId =  await response.clone().json();
           localStorage.setItem("commande", JSON.stringify(getOrderId));
           window.location.replace("./confirmation.html");

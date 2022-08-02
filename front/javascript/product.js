@@ -3,13 +3,7 @@ const displayItem = document.querySelector('.item');
 const url = new URL(window.location);
 const id = url.searchParams.get('id');
 
-// Traitement de l'URl !!!
 
-/**
- * Affichage des éléments dynamiques dans le DOM
- * @classe voir scipt "classes.js"
- * 
- */
 const loadSpecificItem = () => {
     fetch(`http://localhost:3000/api/products/${id}`)
     .then((response) => {
@@ -20,8 +14,6 @@ const loadSpecificItem = () => {
         let quantityChoice;
         let quantityAddInCart;
         
-        
-
         const produit = new Produit(data.colors, data._id, data.name, data.price, data.imageUrl, data.description, data.altText);
         displayItem.innerHTML = produit.renderItemDetailsOnSpecificPage();
 
@@ -41,8 +33,6 @@ const loadSpecificItem = () => {
             quantityChoice = e.target.value;
         }) 
 
-
-       
         const addToCartBtn = document.getElementById("addToCart"); 
         addToCartBtn.addEventListener('click', (e)=> {
             
@@ -57,7 +47,6 @@ const loadSpecificItem = () => {
             }else{
                 errorColor.innerHTML ='';
             }
-                
             // Gestion quantité
             if(!quantityChoice){
                 errorQuantity.innerHTML = "Erreur dans la quantité choisie";
@@ -70,23 +59,16 @@ const loadSpecificItem = () => {
             } else{
                 errorQuantity.innerHTML = "";
                 quantityAddInCart = parseInt(quantityChoice)
-                
-                // Appeler la fonction addProduct
+
                 addProduct({idProduit: id, quantite: quantityAddInCart, couleur: colorChoice})
-           
                 validationMessage.innerHTML = `${produit.name} a été ajouté au panier !`
             }
         })
     })
-    .catch(error => console.log("error dans le fetch"+ error))  
+    .catch((error) => {
+        console.log("error dans le fetch"+ error)
+        document.querySelector('.item').innerHTML = "404 Erreur ! La page que vous demandez n'existe pas..."
+    })
 }
 
 loadSpecificItem();
-
-
-// TO DO 
-// remplir la classe a l'ouverture du bouton ajouter au panier
-
-// Ouvrir Fichier storage 
-
-
