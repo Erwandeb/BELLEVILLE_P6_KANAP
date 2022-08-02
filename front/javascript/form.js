@@ -110,87 +110,20 @@
         products,
     };
     
-
-
-    /*
-    async function produitPanier(){
-        if(tableauProduit !== null){
-            for(let produit of produits){
-                const sectionItems = document.querySelector('#cart__items');
-                let infoprix = await recupPrixProduit(produit._id);
-                console.log(infoprix);
-        }
-    */
-          
-
-
-    fetch("http://localhost:3000/api/products/order",{
-        headers: {
-            "Content-Type": "application/json",
-          },
-        method: "post",
-        body: JSON.stringify(order)
-    }).then( async (response) => {
-        console.log(response)
-        const getOrderId =  await response.clone().json();
-
-        console.log(getOrderId)
-      
-        localStorage.setItem("commande effectué :", JSON.stringify(getOrderId));
-        window.location.replace("./confirmation.html");
-    })
-    .catch((error) => console.log(error))
-
-    removeData();
-
+    if(products.length !== 0 ){
+      fetch("http://localhost:3000/api/products/order",{
+          headers: {
+              "Content-Type": "application/json",
+            },
+          method: "post",
+          body: JSON.stringify(order)
+      }).then( async (response) => {
+          const getOrderId =  await response.clone().json();
+          localStorage.setItem("commande", JSON.stringify(getOrderId));
+          window.location.replace("./confirmation.html");
+      })
+      .catch((error) => console.log(error))
+      removeData();
+    }
    
 });
-
-
-
-
-
-
-
-
-
-
-/*
------- Gestion de la Modale en responsive-----
-
-function editNav() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
-    } else {
-      x.className = "topnav";
-    }
-  }
-  
-  // DOM Elements
-  const modalbg = document.querySelector(".bground");
-  const modalBtn = document.querySelectorAll(".modal-btn");
-  const formData = document.querySelectorAll(".formData");
-  const closeBtn = document.querySelector(".close")
-  const fenetreEnvoie = document.querySelector('.fenetre-envoi')
-  
-  ---- Fonction permettant d'ouvrir et de fermer la fenetre modale-----
-  
-  // launch modal event
-  modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-  
-  // launch modal form
-  function launchModal() {
-    modalbg.style.display = "block";
-  }
-  
-  
-  // Click to leave
-  closeBtn.addEventListener("click" , closeModal);
-  
-  // Close modal form
-  function closeModal () {
-    modalbg.style.display="none"
-  }
-  
-  */

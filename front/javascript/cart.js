@@ -21,6 +21,8 @@ const canapeInCart = getProducts();
  */
 if(canapeInCart.length === 0){
     messagePanierVide.innerHTML = `Le panier est vide  :(`;
+    document.querySelector('.cart__order').style.display="none";
+   
 }
 
 canapeInCart.forEach(canape => {
