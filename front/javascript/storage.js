@@ -17,3 +17,8 @@ const addProduct  = (produit) => {
 const basketKey = 'basket';
 const getProducts = () => JSON.parse(localStorage.getItem(basketKey) ?? "[]")
 const saveBasket = (products) => localStorage.setItem(basketKey, JSON.stringify(products))
+const deleteProduct = (id, color) => {
+    const product = getProducts();
+    const  newBasket = product.filter(element => element.idProduit !== id &&  element.couleur !== color)
+    saveBasket(newBasket);
+}

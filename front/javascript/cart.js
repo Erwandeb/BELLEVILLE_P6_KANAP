@@ -9,16 +9,16 @@ let colorChoice = "no-color";
 let quantityChoice;
 let quantityAddInCart;
 const id = "";
-let canapes = [];
+let finalOrderList =[];
 
 const canapeInCart = getProducts();
 
 
 /**
  * Affichage des éléments dynamiques dans le DOM
- * 
- * 
  */
+
+
 if(canapeInCart.length === 0){
     messagePanierVide.innerHTML = `Le panier est vide  :(`;
     document.querySelector('.cart__order').style.display="none";
@@ -37,37 +37,47 @@ canapeInCart.forEach(canape => {
         
 
         // Récuperer data par Dataset dans article 
+        //const articleCanape = document.querySelector(".cart__item");
+
+       const articles = document.getElementsByClassName('cart__item');
         
+        for(element of articles){
+    
+            const color = element.dataset.color
+            const id = element.dataset.id
 
-       //const articleCanape = document.querySelector(".cart__item");
-
-
-       const articleCanape = document.querySelector('.cart__item');
-        console.log(articleCanape)
-
-       console.log(articleCanape.dataset.color) 
-
-        
-        // Changement de quantité
-        const quantityBasket = document.getElementsByClassName('itemQuantityBasket');
-        for(input of quantityBasket){
+            const input = element.querySelector('input')
             input.addEventListener('change', (e)=>{
-                console.log(e.target.value)
-                 
-            })
-        }
-        
+            
+                let prixArticle = parseInt(e.target.value);
 
-        /*
-        // Supprimer un élement
-        const deleteButton = document.getElementsByClassName('deleteItem');
-        for(button of deleteButton){
-            button.addEventListener('click', ()=>{
-                console.log('click', produit._id)
-                
+                console.log(prixArticle)
+
+                // TO DO
+                // parseInt la valeur
+                // créer fonction changeQuantity pour changer selon couleur et ID et pas plus de 100 // Pas moins de 1 Produit par article
+                // Si e.target.value === 0 > Delete product()
+
+
             })
-        }
-        */
+
+            const deleteItem = element.querySelector('.deleteItem')
+            deleteItem.addEventListener('click', (e)=>{
+                console.log(e.target.value)
+                deleteProduct(id, color)
+
+                // TO DO
+                // supprimer article du DOM sans refresh
+                //location.reload();
+                displaySelecteditem.innerHTML += produit.renderItemDetailsOnCart(canape.quantite, canape.couleur); 
+
+            })
+
+          
+       }
+
+      // console.log("zzz", finalOrderList)
+   
 
     })
     .catch(error => console.log("error dans le fetch"+ error)) 

@@ -89,7 +89,7 @@
     if(email.value.trim() =="" || email.value == null){
         msgErrorEmail.innerHTML = "Vous devez écrire votre e-mail.";
         email.style.border ="2px solid #fe152f";
-      } else if (email.value.trim() === emailIsValid){
+      } else if (emailIsValid(email.value)){
         msgErrorEmail.innerHTML = "L'e-mail saisi est incorrect.";
         email.style.border ="2px solid #fe152f";
       }else{
@@ -97,6 +97,7 @@
         email.style.border ="";
     }
 
+    // Faire controle exectuion du code si champ est faux 
 
     /*-----------------------------------------------------------*/
     /* --------------- ENVOI DU FORMULAIRE ---------------------*/
@@ -121,9 +122,11 @@
           const getOrderId =  await response.clone().json();
           localStorage.setItem("commande", JSON.stringify(getOrderId));
           window.location.replace("./confirmation.html");
+
+          // Remplacer confirmation.html par redirection avec ID
+          removeData();
       })
       .catch((error) => console.log(error))
-      removeData();
     }
    
 });
