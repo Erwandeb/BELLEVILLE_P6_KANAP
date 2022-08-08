@@ -17,10 +17,6 @@
   const msgErrorCity= document.getElementById("cityErrorMsg");
   const msgErrorEmail = document.getElementById("emailErrorMsg");
 
-  // Vérification des emails
-  function emailIsValid (email) {
-    return /\S+@\S+\.\S+/.test(email)
-  }
 
 // Suppressions des champs lorsque le formulaire est envoyé 
   function removeData() {
@@ -43,9 +39,11 @@
     if(firstName.value.trim() == "" || firstName.value == null){
       msgErrorFirstName.innerHTML = "Vous devez écrire votre prénom.";
       firstName.style.border = "2px solid #fe152f";
+      return;
     } else if (antiNumberRegExp.test(firstName.value)){
       msgErrorFirstName.innerHTML = "Votre prénom ne doit pas comporter de chiffres ou de symboles.";
       firstName.style.border = "2px solid #fe152f";
+      return;
     }else {
       msgErrorFirstName.innerHTML = "";
       firstName.style.border = "";
@@ -55,9 +53,11 @@
     if(lastName.value.trim() =="" || lastName.value == null){
       msgErrorLastName.innerHTML = "Vous devez écrire votre nom.";
       lastName.style.border ="2px solid #fe152f";
+      return;
     } else if (antiNumberRegExp.test(lastName.value)){
       msgErrorLastName.innerHTML = "Votre nom ne doit pas comporter de chiffres ou de symboles.";
       lastName.style.border ="2px solid #fe152f";
+      return;
     }else {
       msgErrorLastName.innerHTML = "";
       lastName.style.border ="";
@@ -67,6 +67,7 @@
     if(address.value.trim() =="" || address.value == null){
       msgErrorAdress.innerHTML = "Vous devez renseigner votre date de naissance.";
       address.style.border ="2px solid #fe152f";
+      return;
     }else{
         msgErrorAdress.innerHTML = "";
         address.style.border ="";
@@ -76,9 +77,11 @@
     if(city.value.trim() =="" || city.value == null){
         msgErrorCity.innerHTML = "Vous devez écrire votre nom.";
         city.style.border ="2px solid #fe152f";
+        return;
       } else if (antiNumberRegExp.test(city.value)){
         msgErrorCity.innerHTML = "Votre nom ne doit pas comporter de chiffres ou de symboles.";
         city.style.border ="2px solid #fe152f";
+        return;
       }else {
         msgErrorCity.innerHTML = "";
         city.style.border ="";
@@ -89,7 +92,8 @@
     if(email.value.trim() =="" || email.value == null){
         msgErrorEmail.innerHTML = "Vous devez écrire votre e-mail.";
         email.style.border ="2px solid #fe152f";
-      } else if (emailIsValid(email.value)){
+        return;
+      }else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value))){
         msgErrorEmail.innerHTML = "L'e-mail saisi est incorrect.";
         email.style.border ="2px solid #fe152f";
       }else{
@@ -99,19 +103,29 @@
 
     // Faire controle exectuion du code si champ est faux 
 
+
     /*-----------------------------------------------------------*/
     /* --------------- ENVOI DU FORMULAIRE ---------------------*/
     /*---------------------------------------------------------*/
 
+    // Contact de l'utilisateur
     const contact = new Client(firstName.value, lastName.value, address.value, city.value, email.value)
-    const products = [];
     
+    // récupérations des id
+    const products = [];
+    for (let i = 0; i < canapeInCart.length; i++) {
+      products.push(canapeInCart[i].idProduit)
+    }
+
+    // Objet a envoyer dans le back
     const order = {
         contact,
         products,
     };
     
-    if(products.length !== 0 ){
+
+    // Requete formulaire vers le backend
+    if(products.length > 0 ){
       fetch("http://localhost:3000/api/products/order",{
           headers: {
               "Content-Type": "application/json",
@@ -120,13 +134,16 @@
           body: JSON.stringify(order)
       }).then(async (response) => {
           const getOrderId =  await response.clone().json();
+          console.log(getOrderId)
+          
           localStorage.setItem("commande", JSON.stringify(getOrderId));
           window.location.replace("./confirmation.html");
 
           // Remplacer confirmation.html par redirection avec ID
           removeData();
+          //localStorage.clear();
       })
       .catch((error) => console.log(error))
     }
-   
+  
 });

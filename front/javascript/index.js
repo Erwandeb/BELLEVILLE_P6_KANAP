@@ -2,7 +2,6 @@ const itemsId = document.getElementById('items');
 
 /**
  * Affichage des éléments dynamiques dans le DOM
- * @classe voir classe "produit"
  * 
  */
 const loadProducts = () => {

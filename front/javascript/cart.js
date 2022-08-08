@@ -17,12 +17,9 @@ const canapeInCart = getProducts();
 /**
  * Affichage des éléments dynamiques dans le DOM
  */
-
-
 if(canapeInCart.length === 0){
     messagePanierVide.innerHTML = `Le panier est vide  :(`;
     document.querySelector('.cart__order').style.display="none";
-   
 }
 
 canapeInCart.forEach(canape => {
@@ -35,14 +32,9 @@ canapeInCart.forEach(canape => {
         const produit = new Produit(data.colors, data._id, data.name, data.price, data.imageUrl, data.description, data.altText);
         displaySelecteditem.innerHTML += produit.renderItemDetailsOnCart(canape.quantite, canape.couleur);
         
-
-        // Récuperer data par Dataset dans article 
-        //const articleCanape = document.querySelector(".cart__item");
-
        const articles = document.getElementsByClassName('cart__item');
         
         for(element of articles){
-    
             const color = element.dataset.color
             const id = element.dataset.id
 
@@ -50,38 +42,24 @@ canapeInCart.forEach(canape => {
             input.addEventListener('change', (e)=>{
             
                 let prixArticle = parseInt(e.target.value);
-
                 console.log(prixArticle)
 
                 // TO DO
-                // parseInt la valeur
                 // créer fonction changeQuantity pour changer selon couleur et ID et pas plus de 100 // Pas moins de 1 Produit par article
                 // Si e.target.value === 0 > Delete product()
-
-
             })
+
 
             const deleteItem = element.querySelector('.deleteItem')
             deleteItem.addEventListener('click', (e)=>{
                 console.log(e.target.value)
                 deleteProduct(id, color)
-
-                // TO DO
-                // supprimer article du DOM sans refresh
-                //location.reload();
-                displaySelecteditem.innerHTML += produit.renderItemDetailsOnCart(canape.quantite, canape.couleur); 
-
+                location.reload();
             })
-
-          
        }
-
-      // console.log("zzz", finalOrderList)
    
 
     })
     .catch(error => console.log("error dans le fetch"+ error)) 
 
-
-    
 });
