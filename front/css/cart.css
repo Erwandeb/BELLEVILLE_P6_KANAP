@@ -74,6 +74,7 @@ h2 {
 }
 .cart__item__content__settings__delete p {
 	display: inline;
+	transition: all 0.2s ease-in-out;
 }
 .cart__item__content__settings__delete p:hover {
 	cursor: pointer;
@@ -136,6 +137,7 @@ h2 {
 	padding: 18px 28px;
 	cursor: pointer;
 	margin-top: 40px;
+	transition: all 0.2s ease-in-out;
 }
 .cart__order__form__submit input:hover {
 	box-shadow: rgb(42 18 206 / 90%) 0 0 22px 6px;

@@ -1,9 +1,13 @@
-const itemsId = document.getElementById('items');
-
-/**
- * Affichage des éléments dynamiques dans le DOM
+/***
+ * 
+ * SCRIPT : GESTION DE LA PAGE INDEX
  * 
  */
+
+
+const itemsId = document.getElementById('items');
+
+
 const loadProducts = () => {
     fetch('http://localhost:3000/api/products/')
     .then((response) => {

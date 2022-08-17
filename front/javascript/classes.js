@@ -1,6 +1,7 @@
-/**
- * 1/ @class Produit
- * 2/ @class client
+/***
+ * 
+ * SCRIPT : GESTION DES CLASSES 
+ * 
  */
 
 class Produit {

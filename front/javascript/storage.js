@@ -1,7 +1,8 @@
-
-/*
-* FONCTIONNEMENT DU STORAGE
-*/
+/***
+ * 
+ * SCRIPT : GESTION DU STORAGE
+ * 
+ */
 
 
 
@@ -52,11 +53,13 @@ const changeProductQuantity = (quantiteArticle, id, color) => {
 
 // Products from API 
 const getTotalBasketPrice = (products)=>{
-
     return getProducts()
         .map(product => product.quantite * products.find(p=> p._id === product.idProduit)?.price ?? 0 )
         .reduce((a,b)=>a+b)
-
-        // Controle superieur a 100
-
 }
+
+const getTotalItemsInBasket = (products) =>{
+    products.push(canape.quantite)
+    .reduce((a, b) => a + b, 0);
+}
+
