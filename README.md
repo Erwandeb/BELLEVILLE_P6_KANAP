@@ -17,6 +17,5 @@ console when the server starts, e.g. `Listening on port 3001`.
 
 // TODO LIST 
 > Redirection vers confirmation.html sans stockage 
-> Controle du panier (empecher superieur a 100) OK
-> Afficher le nombre d'élements dans le panier (bas de page cart)
-
+> Controle du panier (empecher superieur a 100) OK 
+> Afficher le nombre d'élements dans le panier (bas de page cart) OK

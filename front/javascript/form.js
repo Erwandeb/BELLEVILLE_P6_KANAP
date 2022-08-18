@@ -140,13 +140,8 @@
           method: "post",
           body: JSON.stringify(order)
       }).then(async (response) => {
-          const getOrderId =  await response.clone().json();
-          console.log(getOrderId)
-          
-          localStorage.setItem("commande", JSON.stringify(getOrderId));
-          window.location.replace("./confirmation.html");
-
-          // Remplacer confirmation.html par redirection avec ID
+          const order=  await response.clone().json();
+          window.location.replace(`./confirmation.html?id=${order.orderId}`);
           removeData();
           //localStorage.clear();
       })

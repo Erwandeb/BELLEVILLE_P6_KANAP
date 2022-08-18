@@ -1,9 +1,16 @@
+/***
+ * 
+ * SCRIPT : GESTION DE LA PAGE PRODUIT
+ * 
+ */
+
 const displayItem = document.querySelector('.item');
 
 const url = new URL(window.location);
 const id = url.searchParams.get('id');
 
 
+// Fonction : Récupérer un élement specifique grâce a son ID et l'afficher sur la page
 const loadSpecificItem = () => {
     fetch(`http://localhost:3000/api/products/${id}`)
     .then((response) => {

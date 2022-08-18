@@ -4,7 +4,6 @@
  * 
  */
 
-
 const displayItem = document.querySelector('.item');
 const displaySelecteditem = document.getElementById("cart__items");
 const messagePanierVide = document.getElementById("message-panier-vide");
@@ -21,6 +20,7 @@ let quantityItemOfTheCart = [];
 const canapeInCart = getProducts();
 
 
+// Si le panier est vide
 if(canapeInCart.length === 0){
     messagePanierVide.innerHTML = `Le panier est vide  :(`;
     document.querySelector('.cart__order').style.display="none";
@@ -28,6 +28,7 @@ if(canapeInCart.length === 0){
 
 const productListRawFromApi = []; 
 
+// Affichage pour chaque éléments dans le panier
 canapeInCart.forEach(canape => {
     fetch(`http://localhost:3000/api/products/${canape.idProduit}`)
     .then((response) => {
@@ -41,54 +42,41 @@ canapeInCart.forEach(canape => {
         productListRawFromApi.push(produit);
         const articles = document.getElementsByClassName('cart__item');
         totalPrice.textContent = getTotalBasketPrice(productListRawFromApi);
-        //totalQuantity.textContent = getTotalItemsInBasket(productListRawFromApi)
+        totalQuantity.textContent = getTotalItemsInBasket();
         
-        //quantityItemOfTheCart.push(canape.quantite).reduce((a, b) => a + b, 0);
-        getTotalItemsInBasket(quantityAddInCart)
-
-        console.log(quantityItemOfTheCart)
-       // console.log(productListRawFromApi)
 
         for(element of articles){
             const color = element.dataset.color
             const id = element.dataset.id
-
             const input = element.querySelector('input')
-            const errorQuantityMsg = element.querySelector('cart__item__content__settings__quantity')
-            console.log(errorQuantityMsg)
+           
+            // Gestion du champs quantité
             input.addEventListener('change', (e)=>{
-            
                 let quantiteArticle = parseInt(e.target.value);
-                console.log(quantiteArticle)
-
+            
                 if(quantiteArticle <= 0){
                     deleteProduct(id, color);
                     element.remove();
-                } else if (quantiteArticle >= 100){
-                    quantiteArticle = 100;
-                    errorQuantityMsg.innerHTML ="Trop d'article !"             
-                    input.style.border ="1px solid red";
                 }else {
+                    if(quantiteArticle > 100){
+                        quantiteArticle = 100;
+                        e.target.value = 100;
+                    }
                     changeProductQuantity(quantiteArticle, id, color);
                 }
-
-               
-       
                 totalPrice.textContent = getTotalBasketPrice(productListRawFromApi);
-                console.log("zzz", canape.quantite)
+                totalQuantity.textContent = getTotalItemsInBasket();
             })
 
+            // Gestion du bouton supprimer
             const deleteItem = element.querySelector('.deleteItem')
             deleteItem.addEventListener('click', (e)=>{
                 deleteProduct(id, color)
                 element.remove();
                 totalPrice.textContent = getTotalBasketPrice(productListRawFromApi);
-
+                totalQuantity.textContent = getTotalItemsInBasket();
             })
        }
-   
-
     })
     .catch(error => console.log("error dans le fetch"+ error)) 
-
 });

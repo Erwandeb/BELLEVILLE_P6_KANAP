@@ -19,7 +19,6 @@ const addProduct  = (produit) => {
             product.quantite = 100;
         }
     }
-
     saveBasket(products);
 }
 
@@ -51,15 +50,16 @@ const changeProductQuantity = (quantiteArticle, id, color) => {
     saveBasket(products);
 }; 
 
-// Products from API 
+// Obtenir le prix total du panier
 const getTotalBasketPrice = (products)=>{
     return getProducts()
         .map(product => product.quantite * products.find(p=> p._id === product.idProduit)?.price ?? 0 )
         .reduce((a,b)=>a+b)
 }
 
-const getTotalItemsInBasket = (products) =>{
-    products.push(canape.quantite)
+// Obtenir le nombre total d'article dans le panier
+const getTotalItemsInBasket = () =>{
+    return getProducts()
+    .map(product => product.quantite)
     .reduce((a, b) => a + b, 0);
 }
-
