@@ -124,14 +124,13 @@
       products.push(canapeInCart[i].idProduit)
     }
 
-    // Objet a envoyer dans le back
+    // Objet a envoyer en traitement pour l'API
     const order = {
         contact,
         products,
     };
     
-
-    // Requete formulaire vers le backend
+    // Requete formulaire vers l'API
     if(products.length > 0 ){
       fetch("http://localhost:3000/api/products/order",{
           headers: {
@@ -143,7 +142,7 @@
           const order=  await response.clone().json();
           window.location.replace(`./confirmation.html?id=${order.orderId}`);
           removeData();
-          //localStorage.clear();
+          localStorage.clear();
       })
       .catch((error) => console.log(error))
     }

@@ -13,9 +13,3 @@ can then run the server with `node server`.
 The server should run on `localhost` with default port `3000`. If the
 server runs on another port for any reason, this is printed to the
 console when the server starts, e.g. `Listening on port 3001`.
-
-
-// TODO LIST 
-> Redirection vers confirmation.html sans stockage 
-> Controle du panier (empecher superieur a 100) OK 
-> Afficher le nombre d'élements dans le panier (bas de page cart) OK
